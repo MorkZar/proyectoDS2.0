@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="card">
+      <h2>Verificación de 2 pasos</h2>
+      <h1>💦🧼🧺👖🧦👕</h1>
+      <p>
+        Este paso extra nos indica que realmente eres tú quien está iniciando sesión.
+        Se acaba de enviar un mensaje de texto (SMS) con un código de 6 dígitos a tu número de teléfono registrado 🫧.
+      </p>
+  
+      <form [formGroup]="form" (ngSubmit)="verificarCodigo()">
+        <label for="codigo">Código de 6 dígitos</label>
+        <input id="codigo" type="text" formControlName="codigo" maxlength="6" placeholder="Ingresa el código">
+  
+        <button type="submit" [disabled]="form.invalid">Verificar</button>
+
+      </form>
+  
+      <div class="error" *ngIf="mensajeError">{{ mensajeError }}</div>
+      <div class="success" *ngIf="mensajeExito">{{ mensajeExito }}</div>
+    </div>
+  </div>
+
+
+  <div class="lavadora-container" id="lavadora">
+    <svg viewBox="0 0 200 200" class="lavadora-svg">
+      <circle cx="100" cy="100" r="90" fill="#f0f0f0" stroke="#444" stroke-width="4"/>
+      <circle cx="100" cy="100" r="60" fill="#d9d9d9" stroke="#888" stroke-width="4"/>
+      <circle cx="100" cy="100" r="40" fill="#4fa3ff" stroke="#005bbb" stroke-width="3" class="agua"/>
+      <rect x="60" y="10" width="80" height="30" fill="#fff" stroke="#888" stroke-width="3" rx="4" ry="4"/>
+      <circle cx="80" cy="25" r="6" fill="#999"/>
+      <circle cx="120" cy="25" r="6" fill="#999"/>
+    </svg>
+    <div class="absorcion"></div>
+  </div>
+
+  

@@ -1,0 +1,50 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+
+<div class="login-container">
+  <div class="washer-icon">
+    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="2" width="60" height="60" rx="8" fill="#153a62"/>
+      <circle cx="32" cy="30" r="18" fill="#cfeeff"/>
+      <path d="M20 34c3 2.5 6.5 3.2 12 1 3.6-1.6 6.4-1 9 1" stroke="#6fbfff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="46" cy="16" r="2.8" fill="#234b74"/>
+    </svg>
+
+
+  <h2>Iniciar Sesión</h2>
+
+  </div>
+
+  <form (ngSubmit)="onLogin1()">
+    <div class="form-group">
+      <label for="correo">Correo:</label>
+      <input type="text" id="usuario" [(ngModel)]="correo" name="correo"/>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Contraseña</label>
+      <input type="password" id="password" [(ngModel)]="password" name="password" class="form-control"/>
+    </div>
+
+    <div class="links">
+      <a [routerLink]="['/create-user']">¿No tienes cuenta aún?</a>
+      <br>
+      <a href="#">¿Olvidaste tu contraseña?</a>
+    </div>
+    <br>
+
+    <button type="submit">Entrar</button>
+
+
+<!-- Mensaje de error -->
+<div *ngIf="errorMsg" class="alert alert-danger d-flex align-items-center" role="alert">
+  <svg class="bi flex-shrink-0 me-2" width="10" height="10" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+  {{ errorMsg }}
+</div>
+
+  </form>
+
+

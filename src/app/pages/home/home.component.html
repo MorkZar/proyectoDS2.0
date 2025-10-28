@@ -1,0 +1,33 @@
+<!-- Navbar -->
+<header class="navbar-container">
+    <nav class="navbar">
+      <div class="nav-left">
+        <a routerLink="/" class="brand">Splash </a>
+      </div>
+      <div class="nav-right">
+        <a routerLink="/home" class="nav-link">Inicio</a>
+        <a routerLink="/servicios" class="nav-link">Servicios</a>
+        <a routerLink="/contacto" class="nav-link">Contacto</a>
+        <button class="logout-btn" (click)="logout()">Cerrar sesión</button>
+      </div>
+    </nav>
+  </header>
+  
+  <!-- Hero / Background principal -->
+  <main class="home-main">
+    <section class="hero">
+      <div class="overlay"></div>
+      <div class="hero-content">
+        <h1>Bienvenido a Splash</h1>
+        <p>Tu ropa limpia, fresca y lista sin complicaciones.</p>
+        <button routerLink="/reservar" class="btn-primary">Haz tu reserva</button>
+      </div>
+    </section>
+  </main>
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 Splash. Todos los derechos reservados.</p>
+  </footer>
+  
+

@@ -1,0 +1,129 @@
+/* === Navbar === */
+.navbar-container {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+  }
+  
+  .brand {
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+  }
+  
+  .nav-link {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+  
+  .nav-link:hover {
+    color: #007bff;
+  }
+  
+  .logout-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .logout-btn:hover {
+    background-color: #bb2d3b;
+  }
+  
+  /* === Hero Section === */
+  .home-main {
+    height: calc(100vh - 120px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url('/assets/img/backgroundLaundry.webp');
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+    position: relative;
+  }
+  
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.45);
+  }
+  
+  .hero-content {
+    position: relative;
+    color: white;
+    text-align: center;
+    z-index: 1;
+  }
+  
+  .hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .hero-content p {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  /* === Footer === */
+  .footer {
+    background-color: #0f172a;
+    color: #e5e7eb;
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 0.9rem;
+  }
+  
+
+    /* Responsive básico */
+    @media (max-width: 600px) {
+        nav {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        nav a {
+            margin: 5px 0;
+        }
+
+        .btn {
+            margin-top: 10px;
+        }
+    }
