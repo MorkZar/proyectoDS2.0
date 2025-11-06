@@ -37,7 +37,7 @@ isAuthenticated(): boolean {
     if (!token) return null;
 
     try {
-      return (jwtDecode as any)(token); // <-- casteo a any para poder llamarlo
+      return (jwtDecode as any)(token); 
     } catch (error) {
       console.error('Error al decodificar el token:', error);
       return null;
@@ -46,7 +46,7 @@ isAuthenticated(): boolean {
 
  getUserRole(): string | null {
   const decoded: any = this.decodeToken();
-  // ahora buscamos dentro de data
+  //buscam dentro de data
   return decoded?.data?.rol || null;
 }
 

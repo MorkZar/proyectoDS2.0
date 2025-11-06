@@ -1,13 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Router, RouterModule, NavigationStart} from '@angular/router';
 import { AuthoService } from '../../login/autho.service';
+import 'spoilerjs/spoiler-span';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [RouterModule],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomeComponent{
  
