@@ -11,26 +11,24 @@ export class AuthGuard implements CanActivate {
 
   constructor(private router: Router, private authoService: AuthoService, private snackBar: MatSnackBar) {}
 
-  canActivate(): boolean {
-  if (!this.authoService.isAuthenticated()) {
-    this.router.navigate(['/login']);
-    return false;
+canActivate(): boolean {
+    if (!this.authoService.isAuthenticated()) {
+      return this.handleUnauthorizedAccess();
+    }
+
+    // ✅ Deja pasar a cualquier usuario autenticado
+    return true;
   }
 
-  // Deja pasar a cualquier usuario autenticado
-  return true;
-}
-
   private handleUnauthorizedAccess(): boolean {
-    
-    this.snackBar.open('Acceso denegado: No ha Iniciado Sesion', 'Cerrar', {
+    this.snackBar.open('Acceso denegado: No ha iniciado sesión', 'Cerrar', {
       duration: 3000,
       horizontalPosition: 'center',
       verticalPosition: 'top',
       panelClass: ['snackbar-error']
     });
 
-    this.router.navigate(['/login']); 
+    this.router.navigate(['/login']);
     return false;
 }
 }
