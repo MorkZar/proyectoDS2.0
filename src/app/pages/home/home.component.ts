@@ -19,8 +19,10 @@ export class HomeComponent{
 
   logout(): void {
   localStorage.removeItem('token');
-  localStorage.removeItem('userRole');
+  localStorage.removeItem('refresh_token');
+  localStorage.removeItem('user_id');
   sessionStorage.clear();
+  this.router.navigate(['/login']);
 }
 }
 

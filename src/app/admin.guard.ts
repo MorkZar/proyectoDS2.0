@@ -30,8 +30,9 @@ export class AdminGuard implements CanActivate {
       verticalPosition: 'top',
       panelClass: ['snackbar-error']
     });
-
-    this.router.navigate(['/login']); 
+      setTimeout(() => {
+       this.router.navigate(['/login']);
+      }, 100);
     return false;
   }
 }
