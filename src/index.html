@@ -8,6 +8,13 @@
   <meta charset="UTF-8">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script>
+  function handleCredentialResponse(response) {
+    window.dispatchEvent(new CustomEvent('google-login', { detail: response }));
+  }
+</script>
+
 
   <!--
     <meta http-equiv="Content-Security-Policy" content="

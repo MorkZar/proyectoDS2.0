@@ -5,7 +5,9 @@ import { AuthInterceptor } from './interceptors/authInterceptor';
 
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { OAuthModule } from 'angular-oauth2-oidc';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes),provideHttpClient(withInterceptors([AuthInterceptor])), provideAnimationsAsync() ]
+  providers: [provideRouter(routes),provideHttpClient(withInterceptors([AuthInterceptor])), provideAnimationsAsync()
+    , importProvidersFrom(OAuthModule.forRoot()),],
 };

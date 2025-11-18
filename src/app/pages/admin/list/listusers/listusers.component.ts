@@ -75,5 +75,19 @@ clearForm() {
 }
 
   onUpdate() {
+    const updatedUser = {
+      user_id: this.user_id1,
+      rol: this.rol1,
+      status: this.status1
+    };
+
+    this.userService.updateUser(updatedUser).subscribe({
+    next: (res) => {
+      console.log("Actualización correcta:", res);
+    },
+    error: (err) => {
+      console.error("Error al actualizar:", err);
+    }
+  });
   }
   }

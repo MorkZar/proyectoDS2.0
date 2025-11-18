@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
 import { ElementRef } from '@angular/core';
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink, RouterOutlet } from "@angular/router";
+import { AuthoService } from '../../login/autho.service';
 
 @Component({
   selector: 'app-dashboard-administracion',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, RouterOutlet],
   templateUrl: './dashboard-administracion.component.html',
   styleUrl: './dashboard-administracion.component.css'
 })
 export class DashboardAdministracionComponent {
 
-  constructor(private elementRef: ElementRef) {}
+  constructor(private elementRef: ElementRef, private auth: AuthoService, private router: Router) {}
 
 ngAfterViewInit(): void {
     const toggle = this.elementRef.nativeElement.querySelector('.toggle') as HTMLElement;
@@ -37,5 +38,9 @@ ngAfterViewInit(): void {
         iconoMenu.classList.replace('bx-menu', 'bx-x');
       });
     });
+  }
+
+  logOut(): void {
+  this.auth.logout();
   }
 }

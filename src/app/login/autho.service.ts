@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 // Import default
 import jwtDecode from 'jwt-decode';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class AuthoService {
 
   private readonly TOKEN_KEY = 'token'; 
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   setToken(token: string): void {
     localStorage.setItem(this.TOKEN_KEY, token);
@@ -27,7 +28,14 @@ isAuthenticated(): boolean {
   }
 
   logout(): void {
-    localStorage.removeItem(this.TOKEN_KEY);
+  localStorage.removeItem('token');
+  localStorage.removeItem('refresh_token');
+  localStorage.removeItem('user_id');
+  localStorage.removeItem('google_user');
+
+  // Limpia todo lo que tu app haya guardado
+    sessionStorage.clear();
+  this.router.navigate(['/login']);
   }
 
   
@@ -50,7 +58,14 @@ isAuthenticated(): boolean {
   return decoded?.data?.rol || null;
 }
 
+getEmail(): string | null {
+  const decoded: any = this.decodeToken();
+  return decoded?.data?.correo || null;
 }
 
+getUserId(): string | null {
+  const decoded: any = this.decodeToken();
+  return decoded?.data?.id || null;
+}
 
-
+}

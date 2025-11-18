@@ -2,13 +2,23 @@
 <header class="navbar-container">
     <nav class="navbar">
       <div class="nav-left">
-        <a routerLink="/" class="brand">Splash </a>
+        <a class="brand">Splash </a>
       </div>
       <div class="nav-right">
         <a routerLink="/home" class="nav-link">Inicio</a>
         <a routerLink="/servicios" class="nav-link">Servicios</a>
         <a routerLink="/contacto" class="nav-link">Contacto</a>
-        <button class="logout-btn" (click)="logout()">Cerrar sesión</button>
+        <!-- 🔽 BOTÓN DE USUARIO -->
+  <div class="user-menu" (click)="toggleUserMenu()">
+    <span class="user-button">Usuario ▾</span>
+
+    <!-- 🔽 MENÚ DESPLEGABLE -->
+    <div class="dropdown" *ngIf="userMenuOpen">
+      <p class="dropdown-item">Hola {{ userEmail }}</p>
+      <a routerLink="/porfile" class="dropdown-item">Editar perfil</a>
+      <button class="dropdown-item logout" (click)="logout(); $event.stopPropagation()">Cerrar sesión</button>
+    </div>
+  </div>
       </div>
     </nav>
   </header>

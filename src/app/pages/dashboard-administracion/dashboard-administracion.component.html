@@ -2,42 +2,49 @@
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
 
     <body>
-<div class = "menu-dashboard">
-    <div class = "top-menu">
-        <div class = "logo">
-            <img src="/src/images/logo.png" alt="logotipo empresa">
-            <span>Tu mejor Web</span>
-        </div>
-        <div class = "toggle">
-            <i class='bx bx-menu'></i>
-        </div>
-    </div>
-    <div class="input-search">
-        <i class='bx bx-search' ></i>
-        <input type="text" class="input" placeholder="Buscar...">
-    </div>
-    <div class="menu">
-        <div class="enlace">
-            <i class="bx bx-grid-alt"></i>
-            <span>Dashboard</span>
-        </div>
+<div class="dashboard">
 
-        <div class="enlace" routerLink="/listusers">
-            <i class="bx bx-user"></i>
-            <span>Usuarios</span>
-        </div>
+  <!-- MENÚ IZQUIERDO -->
+  <div class="menu-dashboard">
+      <div class="top-menu">
+          <div class="logo">
+              <img src="assets/logo.png" alt="logotipo empresa" height="90">
+              <span>Splash Adminstracion</span>
+          </div>
+          <div class="toggle">
+              <i class='bx bx-menu'></i>
+          </div>
+      </div>
 
-        <div class="enlace">
-            <i class="bx bx-message-square"></i>
-            <span>Mensajes</span>
-        </div>
+      <div class="input-search">
+          <i class='bx bx-search'></i>
+          <input type="text" class="input" placeholder="Buscar...">
+      </div>
 
-        <div class="enlace" >
-            <i class='bx bx-log-out' ></i>
-            <span>Cerrar Sesion</span>
-        </div>
-    </div>
+      <!-- ENLACES -->
+      <div class="enlace" routerLink="/dashboard-administracion/admin">
+          <i class="bx bx-message-square"></i>
+          <span>Crear Usuarios</span>
+      </div>
+
+      <div class="enlace" routerLink="/dashboard-administracion/listusers">
+          <i class="bx bx-user"></i>
+          <span>Update Usuarios</span>
+      </div>
+
+      <div class="enlace" (click)="logOut()">
+          <i class='bx bx-log-out'></i>
+          <span>Cerrar Sesión</span>
+      </div>
+  </div>
+
+  <!-- CONTENIDO A LA DERECHA -->
+  <div class="content">
+      <router-outlet></router-outlet>
+  </div>
 
 </div>
+
+
  </body>
 </html>

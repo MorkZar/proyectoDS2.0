@@ -1,0 +1,38 @@
+<div class="profile-container">
+  <h2>Mi Perfil</h2>
+
+  <div class="card">
+    <form [formGroup]="porfileForm" (ngSubmit)="saveChanges()">
+
+      <!-- Nombre -->
+      <label>Nombre</label>
+      <input type="text" formControlName="user_name" placeholder="Tu nombre">
+
+      <div class="error" *ngIf="profileForm.get('user_name')?.invalid && profileForm.get('user_name')?.touched">
+        El nombre es obligatorio y debe tener al menos 3 caracteres.
+      </div>
+
+      <!-- Teléfono -->
+      <label>Teléfono</label>
+      <input type="text" formControlName="phone" placeholder="Ej: 8441234567">
+
+      <div class="error" *ngIf="profileForm.get('phone')?.invalid && profileForm.get('phone')?.touched">
+        El teléfono debe ser de 10 dígitos.
+      </div>
+
+      <!-- Correo -->
+      <label>Correo</label>
+      <input type="text" formControlName="email" placeholder="">
+
+      <div class="error" *ngIf="profileForm.get('email')?.invalid && profileForm.get('email')?.touched">
+      </div>
+
+      <button class="btn" [disabled]="porfileForm.invalid || loading">
+        {{ loading ? 'Guardando...' : 'Actualizar información' }}
+      </button>
+
+      <p class="msg">{{ msg }}</p>
+    </form>
+  </div>
+</div>
+

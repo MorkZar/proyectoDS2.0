@@ -51,7 +51,54 @@
   .logout-btn:hover {
     background-color: #bb2d3b;
   }
-  
+
+
+  .user-menu {
+  position: relative;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.user-button {
+  color: white;
+  font-weight: 600;
+  padding: 8px 12px;
+  background: #0077ff;
+  border-radius: 6px;
+}
+
+.dropdown {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: white;
+  color: #333;
+  width: 180px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+  padding: 5px 0;
+  z-index: 100;
+}
+
+.dropdown-item {
+  padding: 10px 15px;
+  display: block;
+  text-decoration: none;
+  color: #333;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background: #f2f2f2;
+}
+
+.logout {
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: none;
+}
+
   /* === Hero Section === */
   .home-main {
     height: calc(100vh - 120px);
@@ -66,10 +113,10 @@
   }
   
   .overlay {
-    position: absolute;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.45);
-  }
+  background: rgba(0,0,0,0.5);
+  position: absolute;
+  inset: 0;
+}
   
   .hero-content {
     position: relative;
