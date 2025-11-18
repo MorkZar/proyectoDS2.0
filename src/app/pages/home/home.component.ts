@@ -1,8 +1,10 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { Router, RouterModule, NavigationStart} from '@angular/router';
+import { Router, RouterModule, NavigationStart, NavigationEnd, Event} from '@angular/router';
 import { AuthoService } from '../../login/autho.service';
 import 'spoilerjs/spoiler-span';
 import { CommonModule } from '@angular/common';
+import { AuthGoogleService } from '../../login/auth-google.service';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -14,14 +16,31 @@ import { CommonModule } from '@angular/common';
 })
 export class HomeComponent{
  
-  constructor(private router: Router, private authoService: AuthoService) {}
+  constructor(private router: Router, private authGoogleService: AuthGoogleService, private authoService: AuthoService) {}
      
 
   userMenuOpen: boolean = false;
   userEmail = "";
 
   ngOnInit() {
-this.userEmail = this.authoService.getEmail()!;
+// Primero, intentamos obtener el email del login normal
+    const normalEmail = this.authoService.getEmail();
+    if (normalEmail) {
+      this.userEmail = normalEmail;
+    }
+
+    // Si hay usuario de Google, lo sobreescribimos
+    const googleUser = this.authGoogleService.getGoogleUser();
+    if (googleUser) {
+      this.userEmail = googleUser.name;
+    }
+
+  
+    this.router.events.subscribe(event => {
+    if (event instanceof NavigationStart) {
+      this.userMenuOpen = false;
+    }
+  });
 }
 
 toggleUserMenu() {
@@ -36,8 +55,6 @@ toggleUserMenu() {
   sessionStorage.clear();
   this.router.navigate(['/login']);
 }
-
-
 }
 
 

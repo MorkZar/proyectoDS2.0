@@ -10,6 +10,8 @@ import { Verificacion2faComponent } from './verificacion2fa/verificacion2fa.comp
 import { DashboardAdministracionComponent } from './pages/dashboard-administracion/dashboard-administracion.component';
 import { ListusersComponent } from './pages/admin/list/listusers/listusers.component';
 import { PorfileComponent } from './pages/porfile/porfile.component';
+import { DatosuserComponent } from './pages/porfile/datosuser/datosuser.component';
+import { CambiarContrasenaComponent } from './pages/porfile/cambiar-contrasena/cambiar-contrasena.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -27,7 +29,9 @@ export const routes: Routes = [
       { path: '', redirectTo: 'admin', pathMatch: 'full' }
     ]
   },
-  {path: 'porfile', component: PorfileComponent},
+  {path: 'porfile', component: PorfileComponent, canActivate: [AuthGuard]},
+  {path: 'datosuser', component: DatosuserComponent, canActivate: [AuthGuard]},
+  {path: 'cambiarContrasena', component: CambiarContrasenaComponent, canActivate: [AuthGuard]},
   { path: '**', component: NotFoundComponent },
 ];
 

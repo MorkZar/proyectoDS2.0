@@ -1,38 +1,35 @@
-<div class="profile-container">
-  <h2>Mi Perfil</h2>
+<div class="contenedor-form">
 
-  <div class="card">
-    <form [formGroup]="porfileForm" (ngSubmit)="saveChanges()">
+  <!-- Flecha azul para regresar -->
+  <div class="volver" (click)="goBack()">
+    ← Regresar
+  </div>
 
-      <!-- Nombre -->
-      <label>Nombre</label>
-      <input type="text" formControlName="user_name" placeholder="Tu nombre">
+  <div class="card-form">
+    <h2 class="titulo">🧺 Editar Información</h2>
 
-      <div class="error" *ngIf="profileForm.get('user_name')?.invalid && profileForm.get('user_name')?.touched">
-        El nombre es obligatorio y debe tener al menos 3 caracteres.
+    <form (ngSubmit)="actualizarDatos()" #formEdit="ngForm">
+
+      <div class="grupo">
+        <label>Nombre</label>
+        <input type="text" name="user_name" [(ngModel)]="perfil.user_name" required />
       </div>
 
-      <!-- Teléfono -->
-      <label>Teléfono</label>
-      <input type="text" formControlName="phone" placeholder="Ej: 8441234567">
-
-      <div class="error" *ngIf="profileForm.get('phone')?.invalid && profileForm.get('phone')?.touched">
-        El teléfono debe ser de 10 dígitos.
+      <div class="grupo">
+        <label>Correo</label>
+        <p class="dato-label">{{ perfil.email }}</p>
       </div>
 
-      <!-- Correo -->
-      <label>Correo</label>
-      <input type="text" formControlName="email" placeholder="">
-
-      <div class="error" *ngIf="profileForm.get('email')?.invalid && profileForm.get('email')?.touched">
+      <div class="grupo">
+        <label>Teléfono</label>
+        <input type="text" name="phone" [(ngModel)]="perfil.phone" required />
       </div>
 
-      <button class="btn" [disabled]="porfileForm.invalid || loading">
-        {{ loading ? 'Guardando...' : 'Actualizar información' }}
+      <button class="btn-actualizar" [disabled]="formEdit.invalid">
+        Actualizar Información
       </button>
-
-      <p class="msg">{{ msg }}</p>
     </form>
   </div>
 </div>
+
 

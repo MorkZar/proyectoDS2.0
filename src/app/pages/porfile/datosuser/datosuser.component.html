@@ -1,0 +1,30 @@
+<div class="contenedor-perfil">
+
+  <!-- Flecha azul para regresar -->
+  <div class="volver" (click)="goBack()">
+    ← Regresar
+  </div>
+
+  <div class="card">
+    <h2 class="titulo">
+      🧺 Información General
+    </h2>
+
+    <div class="foto-contenedor">
+      <div class="foto"></div>
+    </div>
+
+    <div class="info">
+      <p><strong>Nombre:</strong> {{ perfil?.user_name }}</p>
+      <p><strong>Correo electrónico:</strong> {{ perfil?.email }}</p>
+      <p><strong>Teléfono:</strong> {{ perfil?.phone }}</p>
+    </div>
+
+    <div class="botones">
+      <button class="btn" routerLink="/porfile">Editar Datos</button>
+      <button class="btn" routerLink="/cambiarContrasena">Cambiar Contraseña</button>
+    </div>
+  </div>
+</div>
+
+

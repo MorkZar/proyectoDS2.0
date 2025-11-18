@@ -13,8 +13,9 @@ export class Users1Service {
 
   // Obtener perfil
   getProfile(): Observable<any> {
-    return this.http.get(this.API);
+  return this.http.get(this.API);
   }
+
 
   // Actualizar perfil
   updateProfile(data: any): Observable<any> {

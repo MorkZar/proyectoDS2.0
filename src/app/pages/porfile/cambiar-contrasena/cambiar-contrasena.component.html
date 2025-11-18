@@ -1,0 +1,58 @@
+<div class="contenedor-form">
+
+  <!-- Flecha azul para regresar -->
+  <div class="volver" (click)="goBack()">
+    ← Regresar
+  </div>
+
+  <div class="card-form">
+    <h2 class="titulo">🧺 Cambiar Contraseña</h2>
+
+    <form (ngSubmit)="cambiarPassword()" #formPass="ngForm">
+
+      <!-- CONTRASEÑA ACTUAL -->
+      <div class="grupo">
+        <label>Contraseña actual</label>
+        <input 
+          type="password" 
+          name="password_actual" 
+          [(ngModel)]="passwordActual"
+          required />
+      </div>
+
+      <hr />
+
+      <!-- NUEVA CONTRASEÑA -->
+      <div class="grupo">
+        <label>Nueva contraseña</label>
+        <input 
+          type="password" 
+          name="nueva_password" 
+          [(ngModel)]="nuevaPassword"
+          required minlength="6" />
+      </div>
+
+      <!-- CONFIRMAR CONTRASEÑA -->
+      <div class="grupo">
+        <label>Confirmar contraseña</label>
+        <input 
+          type="password" 
+          name="confirmar_password" 
+          [(ngModel)]="confirmPassword"
+          required minlength="6" />
+      </div>
+
+      <!-- MENSAJE SI NO COINCIDEN -->
+      <div class="error" *ngIf="nuevaPassword !== confirmPassword && formPass.submitted">
+        ⚠️ Las contraseñas no coinciden
+      </div>
+
+      <button class="btn-actualizar"
+        [disabled]="!formPass.valid || nuevaPassword !== confirmPassword">
+        Actualizar Contraseña
+      </button>
+
+    </form>
+  </div>
+</div>
+

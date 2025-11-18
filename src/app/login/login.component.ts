@@ -84,7 +84,7 @@ export class LoginComponent {
           // Redirigir a la pantalla de verificación
           setTimeout(() => {
             this.router.navigate(['/verificacion2fa']);
-          }, 1500);
+          }, 500);
         } else {
           this.errorMsg = res.error || 'Error al iniciar sesión.';
         }

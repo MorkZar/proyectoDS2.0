@@ -15,7 +15,7 @@
     <!-- 🔽 MENÚ DESPLEGABLE -->
     <div class="dropdown" *ngIf="userMenuOpen">
       <p class="dropdown-item">Hola {{ userEmail }}</p>
-      <a routerLink="/porfile" class="dropdown-item">Editar perfil</a>
+      <a routerLink="/datosuser" class="dropdown-item">Editar perfil</a>
       <button class="dropdown-item logout" (click)="logout(); $event.stopPropagation()">Cerrar sesión</button>
     </div>
   </div>

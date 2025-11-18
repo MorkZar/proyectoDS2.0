@@ -20,26 +20,30 @@ export const AuthInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: 
     : req;
 
   return next(authReq).pipe(
-    catchError((error: HttpErrorResponse) => {
-      let message = 'Error inesperado';
-      if (error.status === 400) message = 'Solicitud inválida';
-      else if (error.status === 401) {
-        message = 'No autorizado';
-        router.navigate(['/login']);
-      } else if (error.status === 403) {
-        message = 'Acceso denegado';
-        router.navigate(['/home']);
-      }
+  catchError((error: HttpErrorResponse) => {
+    
+    let message = 'Error inesperado';
+    
+    if (error.status === 400) message = 'Solicitud inválida';
+    else if (error.status === 401) {
+      message = 'No autorizado';
+      router.navigate(['/login']);
+    } 
+    else if (error.status === 403) {
+      message = 'Acceso denegado';
+      router.navigate(['/home']);
+    }
 
-      snackBar.open(message, 'Cerrar', {
-        duration: 3000,
-        horizontalPosition: 'right',
-        verticalPosition: 'top',
-        panelClass: ['snackbar-error']
-      });
+    snackBar.open(message, 'Cerrar', {
+      duration: 3000,
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      panelClass: ['snackbar-error']
+    });
 
-      return throwError(() => new Error(message));
-    })
-  );
+    // CAMBIO IMPORTANTE:
+    return throwError(() => error);
+  })
+);
 };
 

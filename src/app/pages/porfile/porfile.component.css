@@ -1,71 +1,85 @@
-.profile-container {
-  max-width: 450px;
-  margin: 40px auto;
-  text-align: center;
-  font-family: 'Poppins', sans-serif;
+.contenedor-form {
+  max-width: 420px;
+  margin: 0 auto;
+  font-family: "Poppins", sans-serif;
 }
 
-h2 {
-  font-size: 26px;
-  font-weight: 600;
-  margin-bottom: 20px;
-}
-
-.card {
-  background: #ffffff;
-  padding: 25px;
-  border-radius: 18px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-}
-
-label {
-  display: block;
-  text-align: left;
-  margin-bottom: 6px;
+.dato-label {
+  background: #e7f6ff;
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid #a0d8f1;
+  color: #247ba0;
   font-weight: 500;
 }
 
-input {
-  width: 100%;
-  padding: 12px;
+
+.volver {
+  color: #1e88e5;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
   margin-bottom: 15px;
+  transition: 0.2s ease;
+}
+
+.volver:hover {
+  transform: translateX(-4px);
+}
+
+.card-form {
+  background: #f0f8ff;
+  border-radius: 18px;
+  padding: 25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  border: 2px solid #d6ecff;
+}
+
+.titulo {
+  color: #247ba0;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.grupo {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: bold;
+  color: #247ba0;
+  margin-bottom: 5px;
+}
+
+input {
+  padding: 10px;
   border-radius: 10px;
-  border: 1px solid #cfcfcf;
+  border: 2px solid #a0d8f1;
+  outline: none;
   font-size: 15px;
-  transition: all 0.2s ease;
 }
 
 input:focus {
-  border-color: #4a90e2;
-  box-shadow: 0 0 6px rgba(74, 144, 226, 0.4);
-  outline: none;
+  border-color: #4db6e2;
+  box-shadow: 0 0 5px rgba(77,182,226,0.6);
 }
 
-.btn {
+.btn-actualizar {
   width: 100%;
   padding: 12px;
-  background: #4a90e2;
-  color: #fff;
+  margin-top: 15px;
+  background: #4db6e2;
+  color: white;
+  font-weight: bold;
   border: none;
-  font-size: 16px;
   border-radius: 10px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.3s ease;
 }
 
-.btn:hover {
-  background: #357acb;
+.btn-actualizar:hover {
+  background: #1f8fc0;
 }
 
-.error {
-  color: #d9534f;
-  font-size: 13px;
-  margin-top: -10px;
-  margin-bottom: 10px;
-}
-
-.msg {
-  margin-top: 15px;
-  font-size: 14px;
-  color: #28a745;
-}

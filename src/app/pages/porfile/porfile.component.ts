@@ -1,57 +1,52 @@
 import { Component } from '@angular/core';
 import { EmailValidator, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Users1Service } from './users1.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-porfile',
   standalone: true,
   imports: [ReactiveFormsModule,
-    FormsModule],
+    FormsModule, CommonModule],
   templateUrl: './porfile.component.html',
   styleUrl: './porfile.component.css'
 })
 export class PorfileComponent {
-porfileForm!: FormGroup;
-  loading = false;
-  msg: string = '';
-
-  constructor(
-    private fb: FormBuilder,
-    private users1Service: Users1Service
-  ) {}
-
-  ngOnInit(): void {
+  porfileForm: FormGroup;
+  perfil: any = {};
+  loading: boolean = false;
+  constructor(private fb: FormBuilder, private users1Service: Users1Service) {
     this.porfileForm = this.fb.group({
       user_name: ['', [Validators.required, Validators.minLength(3)]],
-      email: [{ value: '', disabled: true }, [Validators.email]],
-      phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+      phone: ['', [Validators.pattern('^[0-9]{10}$')]],
+      email: ['', [Validators.required, Validators.email]]
     });
-
-    // Cargar info del usuario logeado
-    this.users1Service.getProfile().subscribe(user => {
-      this.porfileForm.patchValue({
-        user_name: user.user_name,
-        phone: user.phone,
-        email: user.email
-      });
-    });
+    this.cargarDatosUsuario();
   }
 
-  saveChanges() {
-    if (this.porfileForm.invalid) return;
+goBack() {
+  window.history.back();
+}
 
-    this.loading = true;
+actualizarDatos() {
+  console.log("Datos enviados:", this.perfil);
 
-    this.users1Service.updateProfile(this.porfileForm.getRawValue())
-      .subscribe({
-        next: () => {
-          this.msg = "Información actualizada correctamente";
-          this.loading = false;
-        },
-        error: () => {
-          this.msg = "Error al actualizar";
-          this.loading = false;
-        }
-      });
+  // Aquí llamas a tu servicio PUT
+  this.users1Service.updateProfile(this.perfil).subscribe({
+    next: () => alert("Información actualizada correctamente"),
+    error: err => console.error("Error al actualizar:", err)
+  });
+}
+  cargarDatosUsuario() {
+    this.users1Service.getProfile().subscribe({     
+      next: (data) => {
+        this.perfil = data;
+        this.porfileForm.patchValue({
+          user_name: this.perfil.user_name,
+          phone: this.perfil.phone,
+          email: this.perfil.email
+        });
+      }
+    });
   }
 }
