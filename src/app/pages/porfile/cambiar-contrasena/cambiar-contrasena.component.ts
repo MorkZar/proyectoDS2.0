@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpInterceptorFn } from '@angular/common/http';
@@ -23,6 +23,12 @@ cambiarPassword() {
     password_actual: this.passwordActual,
     nueva_password: this.nuevaPassword
   };
+
+  const token = localStorage.getItem('token');
+const headers = new HttpHeaders({
+  'Authorization': `Bearer ${token}`,
+  'Content-Type': 'application/json'
+});
 
   this.http.put('http://localhost/xampp/proyectoDS2/proyectoDS2.0/src/Backend/apiPass.php', data).subscribe({
     next: (res) => {

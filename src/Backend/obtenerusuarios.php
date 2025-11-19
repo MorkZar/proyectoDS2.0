@@ -49,7 +49,7 @@ function enviarEmailCredenciales($email, $tempPassword) {
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'gamorq13579@gmail.com';
-        $mail->Password = $_ENV['EMAIL_SECRET'];
+        $mail->Password = 'bhcq bqyc fnuw jmrd';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
