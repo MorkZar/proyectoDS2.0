@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { Users1Service } from '../users1.service';
 import { RouterLink } from "@angular/router";
+import { Module } from 'ag-grid-community';
+import { CrearAvatarService } from '../../../servicios/crear-avatar.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-datosuser',
@@ -16,7 +19,11 @@ export class DatosuserComponent {
     phone: ''
   };
 
-  constructor(private users1Service: Users1Service) {}
+  avatarSvg: SafeHtml | null = null;
+
+  
+
+  constructor(private users1Service: Users1Service, private avatarService: CrearAvatarService,  private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
     this.cargarPerfil();
@@ -33,6 +40,14 @@ export class DatosuserComponent {
     }
   });
 }
+
+crearAvatar() {
+  const seed = 'usuario-' + Math.random().toString(36).substring(2, 8);
+  const svg = this.avatarService.generarAvatar(seed);
+  this.avatarSvg = this.sanitizer.bypassSecurityTrustHtml(svg);
+}
+
+
 
 goBack() {
   window.history.back();

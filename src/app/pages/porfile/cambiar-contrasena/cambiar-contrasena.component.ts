@@ -30,7 +30,7 @@ const headers = new HttpHeaders({
   'Content-Type': 'application/json'
 });
 
-  this.http.put('http://localhost/xampp/proyectoDS2/proyectoDS2.0/src/Backend/apiPass.php', data).subscribe({
+  this.http.put('http://localhost/xampp/proyectoDS2/proyectoDS2.0/src/Backend/apiPass.php', data,{ headers }).subscribe({
     next: (res) => {
       alert('Contraseña actualizada exitosamente');
     },

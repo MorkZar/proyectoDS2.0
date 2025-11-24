@@ -11,8 +11,13 @@
     </h2>
 
     <div class="foto-contenedor">
-      <div class="foto"></div>
-    </div>
+
+  <div class="foto" [innerHTML]="avatarSvg"></div>
+
+  <h3>Avatar del usuario</h3>
+
+  <button (click)="crearAvatar()">Crear Avatar</button>
+</div>
 
     <div class="info">
       <p><strong>Nombre:</strong> {{ perfil?.user_name }}</p>
