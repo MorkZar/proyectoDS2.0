@@ -52,6 +52,7 @@ toggleUserMenu() {
   localStorage.removeItem('refresh_token');
   localStorage.removeItem('user_id');
   localStorage.removeItem('google_user');
+  localStorage.removeItem('_grecaptcha');
   sessionStorage.clear();
   this.router.navigate(['/login']);
 }

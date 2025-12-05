@@ -25,13 +25,31 @@ $dotenv->load();
 
 $data = json_decode(file_get_contents("php://input"), true);
 
-if (!isset($data['correo'], $data['password'])) {
+if (!isset($data['correo'], $data['password'], $data['recaptcha'])) {
     echo json_encode(["error" => "Faltan datos"]);
     exit;
 }
 
 $correo = trim($data['correo']);
 $password = $data['password'];
+$recaptcha = $data['recaptcha'];
+
+// ----------------------------
+// VALIDAR CAPTCHA CON GOOGLE
+// ----------------------------
+$secret = $_ENV['RECAPTCHA_SECRET'];
+$verifyUrl = "https://www.google.com/recaptcha/api/siteverify";
+
+$response = file_get_contents($verifyUrl . "?secret=" . $secret . "&response=" . $recaptcha . "&remoteip=" . $_SERVER['REMOTE_ADDR']);
+$result = json_decode($response, true);
+
+if (!$result["success"]) {
+    echo json_encode(["error" => "Captcha inválido"]);
+    exit;
+}
+
+
+
 
 try {
     $stmt = $pdo->prepare("SELECT user_id, email, phone, password, rol FROM users WHERE email = :correo");

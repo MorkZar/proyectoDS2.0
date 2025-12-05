@@ -6,6 +6,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import DOMPurify from 'dompurify';
 import { AuthConfig, OAuthModule } from 'angular-oauth2-oidc';
 import { AuthGoogleService } from './auth-google.service';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 declare var google: any;
 
@@ -13,7 +14,7 @@ declare var google: any;
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterModule, HttpClientModule, OAuthModule, ],
+  imports: [FormsModule, CommonModule, RouterModule, HttpClientModule, OAuthModule,  NgxCaptchaModule ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -22,6 +23,9 @@ export class LoginComponent {
   password: string = '';
   errorMsg: string = '';
   successMsg: string = '';
+  captchaToken: string = '';
+
+  siteKey = '6Lck4iEsAAAAAEkHxTLtvKExIR9X1GzojgVHJWOu';
 
   
 
@@ -68,7 +72,8 @@ export class LoginComponent {
       'http://localhost/xampp/proyectoDS2/proyectoDS2.0/src/Backend/iniciarsesion.php',
       {
         correo: DOMPurify.sanitize(this.correo),
-        password: DOMPurify.sanitize(this.password)
+        password: DOMPurify.sanitize(this.password),
+        recaptcha: this.captchaToken   // <-- enviar token al backend
       }
     ).subscribe({
       next: (res) => {
@@ -94,6 +99,22 @@ export class LoginComponent {
         this.errorMsg = 'Error al conectar con el servidor.';
       }
     });
+  }
+
+   // ----------------------------
+  // CALLBACKS DEL CAPTCHA
+  // ----------------------------
+  onCaptchaSuccess(token: string) {
+    this.captchaToken = token;
+  }
+
+  onCaptchaExpired() {
+    this.captchaToken = '';
+  }
+
+  onCaptchaError() {
+    this.captchaToken = '';
+    this.errorMsg = 'Error al cargar el captcha.';
   }
 
   // ----------------------------

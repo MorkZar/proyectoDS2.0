@@ -27,6 +27,19 @@
     </div>
     <br>
 
+     <!-- reCAPTCHA v2 -->
+  <div>
+    <ngx-recaptcha2
+      [siteKey]="siteKey"
+      (success)="onCaptchaSuccess($event)"
+      (expire)="onCaptchaExpired()"
+      (error)="onCaptchaError()"
+      [hl]="'es'"
+    ></ngx-recaptcha2>
+  </div>
+
+  <br>
+
     <button type="submit">Entrar</button>
 
     <div class="or-container">
