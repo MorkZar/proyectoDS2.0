@@ -14,7 +14,7 @@ declare var google: any;
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterModule, HttpClientModule, OAuthModule,  NgxCaptchaModule ],
+  imports: [FormsModule, CommonModule, RouterModule, HttpClientModule, OAuthModule, NgxCaptchaModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -27,18 +27,18 @@ export class LoginComponent {
 
   siteKey = '6Lck4iEsAAAAAEkHxTLtvKExIR9X1GzojgVHJWOu';
 
-  
+
 
   constructor(private http: HttpClient, private router: Router, private authGoogleService: AuthGoogleService) {
   }
 
-  
 
-    ngAfterViewInit() {
+
+  ngAfterViewInit() {
     // Esperar a que Google esté disponible
     const interval = setInterval(() => {
       if (typeof google !== "undefined") {
-        
+
         google.accounts.id.initialize({
           client_id: "556523685960-4r808ijgat7sm0v7tkaladf1cnusbdof.apps.googleusercontent.com",
           callback: (response: any) => this.loginGoogle1(response)
@@ -54,7 +54,7 @@ export class LoginComponent {
     }, 200);
   }
 
-// ----------------------------
+  // ----------------------------
   // LOGIN Usuario y Contrasena
   // ----------------------------
 
@@ -71,8 +71,8 @@ export class LoginComponent {
     this.http.post<any>(
       'http://localhost/xampp/proyectoDS2/proyectoDS2.0/src/Backend/iniciarsesion.php',
       {
-        correo: DOMPurify.sanitize(this.correo),
-        password: DOMPurify.sanitize(this.password),
+        correo: this.correo,
+        password: this.password,
         recaptcha: this.captchaToken   // <-- enviar token al backend
       }
     ).subscribe({
@@ -101,7 +101,7 @@ export class LoginComponent {
     });
   }
 
-   // ----------------------------
+  // ----------------------------
   // CALLBACKS DEL CAPTCHA
   // ----------------------------
   onCaptchaSuccess(token: string) {
@@ -125,43 +125,43 @@ export class LoginComponent {
   loginGoogle1(googleResponse: any) {
 
 
-  if (!googleResponse || !googleResponse.credential) {
-    console.error("ERROR: Google no devolvió token");
-    this.errorMsg = "No se pudo obtener el token de Google.";
-    return;
-  }
-
-  console.log("Token recibido desde Google:", googleResponse.credential);
-
-  this.http.post(
-  "http://localhost/xampp/proyectoDS2/proyectoDS2.0/src/Backend/validateGoogle.php",
-  { credential: googleResponse.credential },
-  { headers: { "Content-Type": "application/json" } }
-)
-  .subscribe(
-    (res: any) => {
-      console.log("Respuesta backend:", res);
-
-      if (res.ok) {
-        this.authGoogleService.saveGoogleUser(res);
-        this.router.navigate(['/home']);
-      } else {
-        this.errorMsg = "Token inválido o rechazo del backend.";
-      }
-    },
-    err => {
-      console.error("Backend error:", err);
-      this.errorMsg = "Error al conectar con el servidor.";
+    if (!googleResponse || !googleResponse.credential) {
+      console.error("ERROR: Google no devolvió token");
+      this.errorMsg = "No se pudo obtener el token de Google.";
+      return;
     }
-  );
-}
+
+    console.log("Token recibido desde Google:", googleResponse.credential);
+
+    this.http.post(
+      "http://localhost/xampp/proyectoDS2/proyectoDS2.0/src/Backend/validateGoogle.php",
+      { credential: googleResponse.credential },
+      { headers: { "Content-Type": "application/json" } }
+    )
+      .subscribe(
+        (res: any) => {
+          console.log("Respuesta backend:", res);
+
+          if (res.ok) {
+            this.authGoogleService.saveGoogleUser(res);
+            this.router.navigate(['/home']);
+          } else {
+            this.errorMsg = "Token inválido o rechazo del backend.";
+          }
+        },
+        err => {
+          console.error("Backend error:", err);
+          this.errorMsg = "Error al conectar con el servidor.";
+        }
+      );
+  }
 
   // ----------------------------
   // ACTIVAR LISTENER DE GOOGLE
   // ----------------------------
   ngOnInit() {
     window.addEventListener("google-login", (event: any) => {
-      this.loginGoogle1(event.detail); 
+      this.loginGoogle1(event.detail);
     });
   }
 }
