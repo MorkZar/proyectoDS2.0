@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 require_once __DIR__ . '/conectionBD.php';
 require_once __DIR__ . '/../../vendor/autoload.php';
 
+use Firebase\JWT\JWT;
 use Dotenv\Dotenv;
 use Twilio\Rest\Client;
 
@@ -49,18 +50,87 @@ if (!$result["success"]) {
 }
 
 
-
+// ----------------------------
+// VERIFICAR CREDENCIALES
+// ----------------------------
 
 try {
     $stmt = $pdo->prepare("SELECT user_id, email, phone, password, rol FROM users WHERE email = :correo");
     $stmt->bindParam(':correo', $correo);
     $stmt->execute();
-
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($usuario && password_verify($password, $usuario['password'])) {
+    if (!$usuario || !password_verify($password, $usuario['password'])) {
+        echo json_encode(["error" => "Correo o contraseña incorrectos"]);
+        exit;
+    }
 
-        // Verificar si ya existe un OTP activo para este usuario
+     $secret_key = $_ENV['JWT_SECRET'];
+    $now        = time();
+
+    // ----------------------------
+    // USUARIO NORMAL → JWT DIRECTO
+    // ----------------------------
+    if ($usuario['rol'] !== 'admin') {
+
+       $secret_key = $_ENV['JWT_SECRET'];
+    $now = time();
+    $exp = $now + 3600; // 1 hora
+
+    $payload = [
+        'iat' => $now,
+        'exp' => $exp,
+        'data' => [
+            'id' => $usuario['user_id'],
+            'correo' => $usuario['email'],
+            'rol' => $usuario['rol']
+        ]
+    ];
+
+         //Refresh Token 7dias
+    $refreshExp = $now + (7 * 24 * 60 * 60);
+    $refreshPayload = [
+        'iat' => $now,
+        'exp' => $refreshExp,
+        'data' => [
+            'id' => $usuario['user_id'] 
+        ]
+    ];
+
+    $jwt = JWT::encode($payload, $secret_key, 'HS256');
+    $refreshToken = JWT::encode($refreshPayload, $secret_key, 'HS256');
+
+       // Guardar tokens en cookies seguras
+    setcookie("access_token", $jwt, [
+        'expires' => $now + 3600,
+        'path' => '/',
+        'secure' => false,  // true si usas HTTPS
+        'httponly' => true,
+        'samesite' => 'Lax'
+    ]);
+
+    setcookie("refresh_token", $refreshToken, [
+        'expires' => $now + (7 * 24 * 3600),
+        'path' => '/',
+        'secure' => false,  
+        'httponly' => true,
+        'samesite' => 'Lax'
+    ]);
+
+        echo json_encode([
+            "success"       => "Login correcto",
+            "step"          => "done",
+            "token"         => $jwt,
+            "refresh_token" => $refreshToken
+        ]);
+        exit;
+    }
+
+// ----------------------------
+    // ADMIN → FLUJO 2FA CON OTP
+    // ----------------------------
+
+// Verificar si ya existe un OTP activo para este usuario
 $stmt = $pdo->prepare("SELECT sms_id FROM sms WHERE user_id = ? ORDER BY sms_id DESC LIMIT 1");
 $stmt->execute([$usuario['user_id']]);
 $existe = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -111,10 +181,6 @@ $client->messages->create($telefono, [
      "step" => "verify",
      "user_id" => $usuario['user_id']
  ]);
-
-} else {
- echo json_encode(["error" => "Correo o contraseña incorrectos"]);
-}
 
 } catch (Exception $e) {
 echo json_encode(["error" => $e->getMessage()]);

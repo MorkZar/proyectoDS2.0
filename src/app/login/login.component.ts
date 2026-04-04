@@ -7,6 +7,8 @@ import DOMPurify from 'dompurify';
 import { AuthConfig, OAuthModule } from 'angular-oauth2-oidc';
 import { AuthGoogleService } from './auth-google.service';
 import { NgxCaptchaModule } from 'ngx-captcha';
+import jwtDecode from 'jwt-decode';
+import jwt_decode from 'jwt-decode';
 
 declare var google: any;
 
@@ -79,17 +81,26 @@ export class LoginComponent {
       next: (res) => {
         console.log('Respuesta backend login:', res);
 
-        if (res.success && res.user_id) {
-          // Código enviado correctamente
-          this.successMsg = 'Se ha enviado un código de verificación a tu celular.';
+        // ✅ ADMIN → flujo 2FA
+      if (res.step === 'verify' && res.user_id) {
+        this.successMsg = 'Se ha enviado un código de verificación a tu celular.';
+        localStorage.setItem('user_id', res.user_id);
+        setTimeout(() => this.router.navigate(['/verificacion2fa']), 500);
 
-          // Guardar user_id
-          localStorage.setItem('user_id', res.user_id);
+      // ✅ USUARIO NORMAL → login directo
+      } else if (res.step === 'done' && res.token) {
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('refresh_token', res.refresh_token);
 
-          // Redirigir a la pantalla de verificación
-          setTimeout(() => {
-            this.router.navigate(['/verificacion2fa']);
-          }, 500);
+        const lavadora = document.getElementById('lavadora');
+        if (lavadora) {
+          lavadora.classList.add('active');
+         setTimeout(() => this.router.navigate(['/home']), 3500);
+        } else {
+        // Si no existe el elemento, redirige directo
+        this.router.navigate(['/home']);
+        }
+      
         } else {
           this.errorMsg = res.error || 'Error al iniciar sesión.';
         }

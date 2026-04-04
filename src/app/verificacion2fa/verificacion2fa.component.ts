@@ -69,16 +69,7 @@ export class Verificacion2faComponent {
           // Redirigir según el rol
           if (rol === 'admin') {
            this.router.navigate(['/dashboard-administracion']);
-          } else if (rol === 'user') {
-          const lavadora = document.getElementById('lavadora');
-           if (lavadora) {
-            lavadora.classList.add('active');
-            // Espera la animación y redirige
-            setTimeout(() => {
-              this.router.navigate(['/home']);
-            }, 3500); // Tiempo igual o un poco mayor al de la animación CSS
           }
-        }
         } else {
           this.mensajeError = res.error || 'Código incorrecto.';
         }

@@ -130,3 +130,51 @@ button:hover {
     margin: 0 15px;
     text-align: center;
 }
+
+.lavadora-container {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle, #b0d8ff 0%, #ffffff 90%);
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+  }
+  
+  .lavadora-container.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+  
+  .lavadora-svg {
+    width: 180px;
+    height: 180px;
+    transform-origin: center;
+    animation: none;
+  }
+  
+  .lavadora-container.active .lavadora-svg {
+    animation: girar 2s linear infinite;
+  }
+  
+  @keyframes girar {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  /* efecto de absorción de pantalla */
+  .absorcion {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background: white;
+    clip-path: circle(100% at 50% 50%);
+    transition: clip-path 2s ease-in;
+  }
+  
+  .lavadora-container.active .absorcion {
+    clip-path: circle(0% at 50% 50%);
+  }
