@@ -21,6 +21,17 @@ export class CreateUserComponent {
   confirm_password = "";
   errorMsg: string = '';
   successMsg: String = '';
+  lada: String = '';
+
+  // Lista de ladas disponibles
+  ladas = [
+    { codigo: '52', pais: '🇲🇽 México' },
+    { codigo: '1',  pais: '🇺🇸 EE.UU / Canadá' },
+    { codigo: '34', pais: '🇪🇸 España' },
+    { codigo: '54', pais: '🇦🇷 Argentina' },
+    { codigo: '57', pais: '🇨🇴 Colombia' },
+  
+    ];
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -28,7 +39,7 @@ export class CreateUserComponent {
   onLogin() {
     this.errorMsg = '';
 
-    if (!this.nombre.trim() ||!this.correo.trim() ||!this.telefono.trim() || !this.password.trim() || !this.confirm_password.trim()) {
+    if (!this.nombre.trim() ||!this.correo.trim() ||!this.lada.trim() ||!this.telefono.trim() || !this.password.trim() || !this.confirm_password.trim()) {
       this.errorMsg = 'Completa todos los campos.';
       return;
     }
@@ -68,7 +79,7 @@ if (!/^\d+$/.test(this.telefono)) {
     this.http.post<any>('http://localhost/xampp/proyectoDS2/proyectoDS2.0/src/Backend/crearUsuarios.php', {
       nombre: this.nombre,
       correo: DOMPurify.sanitize(this.correo),
-      telefono: this.telefono !== '' ? Number(this.telefono) : null,
+      telefono: this.telefono !== '' ? `${this.lada}${this.telefono}` : null,
       password: DOMPurify.sanitize(this.password)
     }).subscribe(
       res => {

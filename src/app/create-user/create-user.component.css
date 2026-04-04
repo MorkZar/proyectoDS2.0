@@ -81,3 +81,17 @@ button:hover {
   color: red;
   font-size: 14px;
 }
+
+.telefono-group {
+  display: flex;
+  gap: 8px;
+}
+
+.telefono-group select {
+  width: 180px;
+  flex-shrink: 0;
+}
+
+.telefono-group input {
+  flex: 1;
+}

@@ -27,10 +27,6 @@ if (empty($nombre) || empty($correo) || empty($telefono) || empty($password)) {
     exit;
 }
 
-if (!is_numeric($telefono)) {
-    echo json_encode(["error" => "El teléfono debe ser numérico"]);
-    exit;
-}
 
 
 try {

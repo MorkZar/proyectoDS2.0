@@ -95,7 +95,7 @@ if (strpos($telefono, '+') !== 0) {
     // Elimina espacios, guiones o paréntesis
     $telefono = preg_replace('/\D/', '', $telefono);
     // Asegura que tenga el prefijo +52
-    $telefono = '+52' . $telefono;
+    $telefono = '+' . $telefono;
 }
 
 // Enviar mensaje con Twilio
