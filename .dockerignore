@@ -1,0 +1,11 @@
+.git
+.gitignore
+npm-debug.log
+.firebase
+Dockerfile
+.editorconfig
+dist
+/node_modules
+/envs
+
+

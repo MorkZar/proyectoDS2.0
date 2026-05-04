@@ -1,0 +1,10 @@
+.git
+.gitignore
+npm-debug.log
+.firebase
+Dockerfile
+dist
+/node_modules
+/envs
+
+
