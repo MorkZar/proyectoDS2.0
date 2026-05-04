@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: src/app/Dockerfile
     ports:
-      - "4200:80"
+      - "4201:80"
     depends_on:
       - backend
     networks:
@@ -17,7 +17,7 @@ services:
       context: .
       dockerfile: src/Backend/Dockerfile
     ports:
-      - "8080:80"
+      - "8081:80"
     env_file:
       - env/conecton.env
     environment:
