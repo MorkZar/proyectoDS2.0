@@ -12,6 +12,7 @@ WORKDIR /var/www/html/
 # Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
+
 # Copiar TODO el proyecto
 COPY . .
 

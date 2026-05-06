@@ -14,14 +14,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 require_once __DIR__ . '/conectionBD.php';
-require_once __DIR__ . '/../../vendor/autoload.php';
+//require_once __DIR__ . '/../../vendor/autoload.php';
+//Container
+require_once __DIR__ . '/vendor/autoload.php';
 
 use Firebase\JWT\JWT;
 use Dotenv\Dotenv;
 use Twilio\Rest\Client;
 
 // Cargar variables de entorno
-$dotenv = Dotenv::createImmutable(__DIR__ . '/../../env', 'token.env');
+//$dotenv = Dotenv::createImmutable(__DIR__ . '/../../env', 'token.env');
+//Container
+$dotenv = Dotenv::createImmutable(__DIR__ . '/env', 'token.env');
 $dotenv->load();
 
 

@@ -5,7 +5,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 use Dotenv\Dotenv;
 
 // Cargar variables de entorno
-$dotenv = Dotenv::createImmutable(__DIR__ . '/../../env', 'conecton.env');
+//$dotenv = Dotenv::createImmutable(__DIR__ . '/../../env', 'conecton.env');
+$dotenv = Dotenv::createImmutable(__DIR__ . '/env', 'conecton.env');
 $dotenv->load();
 
 
