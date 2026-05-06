@@ -7,18 +7,16 @@ RUN apt-get update \
 
 RUN a2enmod rewrite
 
-WORKDIR /var/www/html
+WORKDIR /var/www/html/
 
-# Copiar Composer desde imagen oficial
+# Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Copiar dependencias primero (cache)
-COPY composer.json composer.lock ./
-
-RUN composer install --no-dev --optimize-autoloader
-
-# Copiar resto del proyecto
+# Copiar TODO el proyecto
 COPY . .
+
+# Instalar dependencias
+RUN composer install --no-dev --optimize-autoloader
 
 # Permisos
 RUN chown -R www-data:www-data /var/www/html

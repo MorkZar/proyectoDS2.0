@@ -31,15 +31,10 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: proyectoDS
-    volumes:
-      - db-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     networks:
       - app-network
-
-volumes:
-  db-data:
 
 networks:
   app-network:
