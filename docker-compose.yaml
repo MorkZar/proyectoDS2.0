@@ -40,6 +40,8 @@ services:
       POSTGRES_DB: ${DB_NAME}
     ports:
       - "5432:5432"
+    volumes:
+    - ./src/bd/splashBD.sql:/docker-entrypoint-initdb.d/splashBD.sql
     networks:
       - app-network
 

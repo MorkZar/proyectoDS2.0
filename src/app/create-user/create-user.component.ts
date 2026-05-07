@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import DOMPurify from 'dompurify';
 import { throwConfetti } from '../../utils/confetti';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-create-user',
@@ -76,7 +77,10 @@ if (!/^\d+$/.test(this.telefono)) {
 
 
        // Enviar datos al backend
-    this.http.post<any>('http://localhost/xampp/proyectoDS2/proyectoDS2.0/src/Backend/crearUsuarios.php', {
+    this.http.post<any>(
+    //'http://localhost/xampp/proyectoDS2/proyectoDS2.0/src/Backend/crearUsuarios.php',
+    'http://localhost:8081/crearUsuarios.php',
+       {
       nombre: this.nombre,
       correo: DOMPurify.sanitize(this.correo),
       telefono: this.telefono !== '' ? `${this.lada}${this.telefono}` : null,

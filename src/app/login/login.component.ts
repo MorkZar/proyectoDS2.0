@@ -9,7 +9,7 @@ import { AuthGoogleService } from './auth-google.service';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import jwtDecode from 'jwt-decode';
 import jwt_decode from 'jwt-decode';
-import { environment } from '../../environments/environment';
+import { environment } from '../environments/environment';
 
 declare var google: any;
 
@@ -73,7 +73,7 @@ export class LoginComponent {
 
     this.http.post<any>(
       //'http://localhost/xampp/proyectoDS2/proyectoDS2.0/src/Backend/iniciarsesion.php',
-      '${environment.apiUrl}/iniciarSesion.php',
+      'http://localhost:8081/iniciarSesion.php',
       {
         correo: this.correo,
         password: this.password,
