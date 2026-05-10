@@ -44,15 +44,29 @@ $recaptcha = $data['recaptcha'];
 // ----------------------------
 // VALIDAR CAPTCHA CON GOOGLE
 // ----------------------------
-$secret = $_ENV['RECAPTCHA_SECRET'];
-$verifyUrl = "https://www.google.com/recaptcha/api/siteverify";
+$captchaEnabled = $_ENV['RECAPTCHA_ENABLED'] ?? 'true';
 
-$response = file_get_contents($verifyUrl . "?secret=" . $secret . "&response=" . $recaptcha . "&remoteip=" . $_SERVER['REMOTE_ADDR']);
-$result = json_decode($response, true);
+if ($captchaEnabled === 'true') {
 
-if (!$result["success"]) {
-    echo json_encode(["error" => "Captcha inválido"]);
-    exit;
+    $secret = $_ENV['RECAPTCHA_SECRET'];
+    $verifyUrl = "https://www.google.com/recaptcha/api/siteverify";
+
+    $response = file_get_contents(
+        $verifyUrl .
+        "?secret=" . $secret .
+        "&response=" . $recaptcha .
+        "&remoteip=" . $_SERVER['REMOTE_ADDR']
+    );
+
+    $result = json_decode($response, true);
+
+    if (!$result["success"]) {
+        echo json_encode([
+            "error" => "Captcha inválido"
+        ]);
+        exit;
+    }
+
 }
 
 

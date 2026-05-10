@@ -11,6 +11,7 @@ import jwtDecode from 'jwt-decode';
 import jwt_decode from 'jwt-decode';
 import { environment } from '../environments/environment';
 
+
 declare var google: any;
 
 
@@ -21,6 +22,8 @@ declare var google: any;
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
+
 export class LoginComponent {
   correo: string = '';
   password: string = '';
@@ -71,14 +74,17 @@ export class LoginComponent {
       return;
     }
 
-    if (!this.captchaToken) {
-      this.errorMsg = 'Completa el captcha.';
-      return;
-    }
+    // ----------------------------
+  // VALIDAR CAPTCHA SOLO SI ESTÁ ACTIVADO
+  // ----------------------------
+  if (environment.captchaEnabled && !this.captchaToken) {
+    this.errorMsg = 'Completa el captcha.';
+    return;
+  }
 
-    console.log('this.correo', this.correo);
-    console.log('this.password', this.password);
-    console.log('this.captchaToken', this.captchaToken);
+  console.log('this.correo', this.correo);
+  console.log('this.password', this.password);
+  console.log('this.captchaToken', this.captchaToken);
 
     this.http.post<any>(
       //'http://localhost/xampp/proyectoDS2/proyectoDS2.0/src/Backend/iniciarsesion.php',
@@ -86,7 +92,10 @@ export class LoginComponent {
       {
         correo: this.correo,
         password: this.password,
-        recaptcha: this.captchaToken 
+        // Si captcha está desactivado → enviar token fake
+        recaptcha: environment.captchaEnabled
+        ? this.captchaToken
+        : 'test-token'
       },
       { headers: { "Content-Type": "application/json" } }
     ).subscribe({
