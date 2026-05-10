@@ -71,14 +71,24 @@ export class LoginComponent {
       return;
     }
 
+    if (!this.captchaToken) {
+      this.errorMsg = 'Completa el captcha.';
+      return;
+    }
+
+    console.log('this.correo', this.correo);
+    console.log('this.password', this.password);
+    console.log('this.captchaToken', this.captchaToken);
+
     this.http.post<any>(
       //'http://localhost/xampp/proyectoDS2/proyectoDS2.0/src/Backend/iniciarsesion.php',
       'http://localhost:8081/iniciarSesion.php',
       {
         correo: this.correo,
         password: this.password,
-        recaptcha: this.captchaToken   // <-- enviar token al backend
-      }
+        recaptcha: this.captchaToken 
+      },
+      { headers: { "Content-Type": "application/json" } }
     ).subscribe({
       next: (res) => {
         console.log('Respuesta backend login:', res);
@@ -147,7 +157,8 @@ export class LoginComponent {
     console.log("Token recibido desde Google:", googleResponse.credential);
 
     this.http.post(
-      "http://localhost/xampp/proyectoDS2/proyectoDS2.0/src/Backend/validateGoogle.php",
+      //"http://localhost/xampp/proyectoDS2/proyectoDS2.0/src/Backend/validateGoogle.php",
+      'http://localhost:8081/validateGoogle.php',
       { credential: googleResponse.credential },
       { headers: { "Content-Type": "application/json" } }
     )
